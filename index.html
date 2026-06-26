@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RouteWeaver — Smart Railway Routing for India</title>
+  <meta name="description" content="RouteWeaver bypasses waitlists by discovering multi-leg railway routes with confirmed seats. Intelligent routing for Indian Railways." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=3" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <div class="logo-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <circle cx="4" cy="14" r="3.5" fill="#6C63FF"/>
+            <circle cx="14" cy="7" r="3.5" fill="#FF6584"/>
+            <circle cx="24" cy="14" r="3.5" fill="#43D9AD"/>
+            <circle cx="14" cy="21" r="3.5" fill="#FFB347"/>
+            <line x1="4" y1="14" x2="14" y2="7" stroke="#6C63FF" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <line x1="14" y1="7" x2="24" y2="14" stroke="#FF6584" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <line x1="24" y1="14" x2="14" y2="21" stroke="#43D9AD" stroke-width="1.5" stroke-dasharray="2 2"/>
+          </svg>
+        </div>
+        <span class="logo-text">Route<span class="accent">Weaver</span></span>
+      </div>
+      <div class="nav-links">
+        <a href="#how-it-works" class="nav-link">How it Works</a>
+        <a href="#about" class="nav-link">About</a>
+      </div>
+      <div class="nav-badge">Beta</div>
+    </div>
+  </nav>
+
+  <!-- HERO + SEARCH (above the fold) -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    <div class="hero-glow hero-glow-3"></div>
+
+    <div class="container hero-content">
+
+      <!-- Top text block -->
+      <div class="hero-top">
+        <div class="hero-pill">
+          <span class="pill-dot"></span>
+          <span>Intelligent Multi-Leg Routing</span>
+        </div>
+        <h1 class="hero-title">
+          Waitlisted? <span class="gradient-text">Weave Your Way</span> Back Home.
+        </h1>
+        <p class="hero-subtitle">
+          Discover confirmed seats via smart multi-leg journeys — with a guaranteed 2-hour safety buffer at every connection.
+        </p>
+      </div>
+
+      <!-- Popular Route Chips -->
+      <div class="popular-routes">
+        <div class="popular-label">⚡ Popular Routes</div>
+        <div class="chips-row" id="chips-row"></div>
+      </div>
+
+      <!-- SEARCH CARD embedded in hero -->
+      <div class="hero-search-card" id="search-form">
+
+        <!-- Row 1: From / Swap / To -->
+        <div class="hsc-row hsc-main-row">
+          <div class="hsc-field">
+            <label class="hsc-label" for="source-input">
+              <span class="hsc-label-dot hsc-dot-from"></span> From
+            </label>
+            <div class="input-wrap">
+              <input type="text" id="source-input" class="hsc-input" placeholder="Boarding station…" autocomplete="off" />
+              <div class="autocomplete-dropdown" id="source-dropdown"></div>
+            </div>
+          </div>
+
+          <button class="swap-btn" id="swap-btn" title="Swap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/>
+            </svg>
+          </button>
+
+          <div class="hsc-field">
+            <label class="hsc-label" for="dest-input">
+              <span class="hsc-label-dot hsc-dot-to"></span> To
+            </label>
+            <div class="input-wrap">
+              <input type="text" id="dest-input" class="hsc-input" placeholder="Destination station…" autocomplete="off" />
+              <div class="autocomplete-dropdown" id="dest-dropdown"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="hsc-divider"></div>
+
+        <!-- Row 2: Date / Class / Connections + Button -->
+        <div class="hsc-row hsc-options-row">
+          <div class="hsc-option">
+            <label class="hsc-label" for="date-input">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Date
+            </label>
+            <input type="date" id="date-input" class="hsc-input hsc-select" />
+          </div>
+
+          <div class="hsc-option">
+            <label class="hsc-label" for="class-select">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              Class
+            </label>
+            <select id="class-select" class="hsc-input hsc-select">
+              <option value="SL">Sleeper (SL)</option>
+              <option value="3A">AC 3 Tier (3A)</option>
+              <option value="2A">AC 2 Tier (2A)</option>
+              <option value="1A">AC First Class (1A)</option>
+              <option value="CC">Chair Car (CC)</option>
+              <option value="2S">Second Sitting (2S)</option>
+            </select>
+          </div>
+
+          <div class="hsc-option">
+            <label class="hsc-label" for="max-legs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Connections
+            </label>
+            <select id="max-legs" class="hsc-input hsc-select">
+              <option value="1">1 Connection</option>
+              <option value="2" selected>2 Connections</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary hsc-search-btn" id="search-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Search Routes
+          </button>
+        </div>
+      </div>
+
+      <!-- Trust badges -->
+      <div class="hero-trust">
+        <div class="trust-item"><span class="trust-icon">🛡️</span> 2-hr safety buffer</div>
+        <div class="trust-sep">·</div>
+        <div class="trust-item"><span class="trust-icon">✅</span> Confirmed seats only</div>
+        <div class="trust-sep">·</div>
+        <div class="trust-item"><span class="trust-icon">⚡</span> Results in &lt;2 seconds</div>
+        <div class="trust-sep">·</div>
+        <div class="trust-item"><span class="trust-icon">🗺️</span> 200+ stations mapped</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RESULTS SECTION (appears below hero after search) -->
+  <section class="results-section" id="results-section" style="display:none;">
+    <div class="container">
+      <div class="direct-notice" id="direct-notice">
+        <div class="notice-icon">⚠️</div>
+        <div class="notice-content">
+          <strong>Direct trains are fully waitlisted.</strong>
+          <span id="direct-notice-text">Showing Smart Route alternatives with confirmed seats below.</span>
+        </div>
+      </div>
+
+      <div class="results-header">
+        <div class="results-meta">
+          <span id="results-count-label">4 Smart Routes found</span>
+          <span class="results-journey-label" id="results-journey-label"></span>
+        </div>
+        <div class="results-sort">
+          <span class="sort-label">Sort by:</span>
+          <button class="sort-btn active" id="sort-time" onclick="sortResults('time')">⏱ Time</button>
+          <button class="sort-btn" id="sort-cost" onclick="sortResults('cost')">₹ Cost</button>
+          <button class="sort-btn" id="sort-legs" onclick="sortResults('legs')">🔀 Legs</button>
+        </div>
+      </div>
+
+      <div class="route-cards" id="route-cards"></div>
+
+      <div class="itinerary-copy-bar" id="itinerary-copy-bar">
+        <div class="copy-bar-text">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+          <span id="selected-route-label">No route selected — click a card to select</span>
+        </div>
+        <button class="btn btn-primary btn-sm" id="copy-itinerary-btn" onclick="copyItinerary()" disabled>
+          Copy Itinerary for IRCTC
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-pill">The Process</div>
+        <h2 class="section-title">Three Steps to <span class="gradient-text">Your Journey</span></h2>
+        <p class="section-subtitle">Our graph-traversal engine analyses hundreds of junction hubs in seconds to find you confirmed alternatives.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card" data-step="01">
+          <div class="step-icon-wrap step-icon-purple">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Enter Source & Destination</h3>
+          <p>Tell us where you're starting from and where you need to go. Add your travel date and preferred class.</p>
+        </div>
+        <div class="step-connector"><div class="connector-line"></div><div class="connector-dot"></div></div>
+        <div class="step-card" data-step="02">
+          <div class="step-icon-wrap step-icon-pink">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Engine Finds Corridor Hubs</h3>
+          <p>The algorithm scans only stations that lie geographically between your origin and destination — no wild detours.</p>
+        </div>
+        <div class="step-connector"><div class="connector-line"></div><div class="connector-dot"></div></div>
+        <div class="step-card" data-step="03">
+          <div class="step-icon-wrap step-icon-green">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+          </div>
+          <h3>Pick & Book on IRCTC</h3>
+          <p>Review confirmed multi-leg options ranked by time & cost. Copy the itinerary and book each leg directly on IRCTC.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="section-pill">About RouteWeaver</div>
+          <h2 class="section-title">Built for the <span class="gradient-text">Stranded Traveler</span></h2>
+          <p>Every peak season, millions of Indians find themselves stuck with waitlisted tickets and no viable alternatives. Power users spend hours manually checking transit hubs. <strong>RouteWeaver automates all of that.</strong></p>
+          <p>Our graph-traversal engine (inspired by Dijkstra's algorithm) maps the Indian rail network as nodes and edges, then discovers optimized multi-leg paths in seconds.</p>
+          <div class="about-callout">
+            <div class="callout-icon">🛡️</div>
+            <div>
+              <strong>The 2-Hour Safety Buffer</strong>
+              <p>Every connection in a Smart Route has at least 2 hours of layover — enough margin for typical Indian Railways delays. No more missed connections.</p>
+            </div>
+          </div>
+          <div class="about-disclaimer">
+            <strong>⚠️ MVP Disclaimer:</strong> RouteWeaver uses a simulated network for demonstration. Live IRCTC booking and real-time tracking are <em>out of scope</em> for this version.
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="network-visual">
+            <canvas id="rail-canvas" width="420" height="340"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-text">Route<span class="accent">Weaver</span></span>
+        <p>Bypassing waitlists through intelligent, multi-leg railway routing.</p>
+      </div>
+      <div class="footer-note">
+        <p>Not affiliated with Indian Railways or IRCTC.</p>
+        <p class="footer-copy">© 2025 RouteWeaver. Made with ❤️ for Indian travelers.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY COPY BAR -->
+  <div class="sticky-copy-bar" id="sticky-bar">
+    <div class="sticky-bar-info">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#43D9AD" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+      <div>
+        <div class="sticky-bar-route" id="sticky-bar-route"></div>
+        <div class="sticky-bar-meta" id="sticky-bar-meta"></div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="copyItinerary()">Copy Itinerary for IRCTC</button>
+  </div>
+
+  <script src="stations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
