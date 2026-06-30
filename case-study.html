@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RouteWeaver — PM Case Study</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body { background-color: #0b1120; color: #cbd5e1; }
+    /* Smooth Scroll */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="font-sans min-h-screen">
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-6">
+        <a href="index.html" class="text-slate-400 hover:text-white transition flex items-center gap-1 text-sm font-semibold">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Product
+        </a>
+        <div class="text-2xl font-bold bg-gradient-to-r from-amber-400 to-rose-400 bg-clip-text text-transparent font-outfit">
+          RouteWeaver
+        </div>
+      </div>
+      <div class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="#validation" class="hover:text-amber-400 transition">Research</a>
+        <a href="#product" class="hover:text-amber-400 transition">Product</a>
+        <a href="#gtm" class="hover:text-amber-400 transition">GTM & KPIs</a>
+        <a href="#roadmap" class="hover:text-amber-400 transition">Roadmap</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-12 px-6 max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="space-y-8">
+        <div>
+          <h1 class="text-5xl md:text-6xl font-bold leading-tight font-outfit mb-4 text-white">
+            Bypassing the <br/>
+            <span class="text-rose-500">Waitlist Crisis</span>
+          </h1>
+          <p class="text-xl text-slate-400">
+            A Product Management case study on unlocking hidden seat inventory in Indian Railways through intelligent multi-leg routing.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-[#0f172a]/80 backdrop-blur rounded-lg p-4 border border-slate-800 border-l-4 border-l-rose-500">
+            <p class="text-xs text-slate-500 uppercase tracking-wide">Target Market</p>
+            <p class="text-2xl font-bold text-rose-400">23M+</p>
+          </div>
+          <div class="bg-[#0f172a]/80 backdrop-blur rounded-lg p-4 border border-slate-800 border-l-4 border-l-amber-500">
+            <p class="text-xs text-slate-500 uppercase tracking-wide">Avg Savings</p>
+            <p class="text-2xl font-bold text-amber-400">₹3,200</p>
+          </div>
+          <div class="bg-[#0f172a]/80 backdrop-blur rounded-lg p-4 border border-slate-800 border-l-4 border-l-indigo-500">
+            <p class="text-xs text-slate-500 uppercase tracking-wide">Success Rate</p>
+            <p class="text-2xl font-bold text-indigo-400">4.2x</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 backdrop-blur shadow-2xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl"></div>
+        <div class="space-y-6 relative z-10">
+          <div class="text-center pb-6 border-b border-slate-800">
+            <h3 class="text-2xl font-bold font-outfit text-white">The Core Premise</h3>
+          </div>
+          
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 rounded-full bg-rose-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-rose-400 font-bold">!</span>
+              </div>
+              <div>
+                <p class="font-semibold text-white">The Bottleneck</p>
+                <p class="text-sm text-slate-400 mt-1">Direct trains between major cities hit 100% capacity weeks in advance, leaving travelers forced to buy expensive last-minute flights.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-amber-400 font-bold">✓</span>
+              </div>
+              <div>
+                <p class="font-semibold text-white">The Smart Route</p>
+                <p class="text-sm text-slate-400 mt-1">By breaking the journey into 2 or 3 smaller legs via intermediate hubs, we can find confirmed seats that algorithms ignore.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- User Validation -->
+  <section id="validation" class="py-12 px-6 max-w-7xl mx-auto">
+    <h2 class="text-3xl font-bold mb-8 text-center font-outfit text-white">User Research & Validation</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-[#0f172a] border border-slate-800 rounded-xl p-8">
+        <h3 class="text-xl font-bold mb-6 font-outfit text-white">Direct Train Availability (Delhi to Patna)</h3>
+        <div class="h-64 w-full relative">
+          <canvas id="waitlistChart"></canvas>
+        </div>
+      </div>
+
+      <div class="bg-[#0f172a] border border-slate-800 rounded-xl p-8 flex flex-col justify-center">
+        <i data-lucide="alert-octagon" class="text-rose-500 w-12 h-12 mb-6"></i>
+        <h3 class="text-2xl font-bold font-outfit text-white mb-4">The "Tatkal" Desperation</h3>
+        <p class="text-slate-400 mb-6">User interviews revealed that over 70% of students and migrant workers panic-buy flight tickets at 3x the normal price when their emergency Tatkal railway tickets fail to confirm.</p>
+        <div class="bg-slate-900/80 p-4 rounded-lg border border-slate-800 border-l-4 border-l-amber-500">
+          <p class="text-amber-400 text-sm font-semibold italic">"I just need to get home for Diwali. I don't care if I have to change trains twice in random cities, as long as I have a confirmed seat." — User Interview #12</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product & MVP Scope -->
+  <section id="product" class="py-20 bg-[#0f172a]/50 border-y border-slate-800/50">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-4 text-center font-outfit text-white">Product & MVP Scope</h2>
+      <p class="text-center text-slate-400 mb-12 max-w-2xl mx-auto">Building a robust routing engine without over-engineering the initial release.</p>
+      
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-8 relative overflow-hidden">
+          <h3 class="text-2xl font-bold mb-6 text-white font-outfit">Core User Experience</h3>
+          <ul class="space-y-6">
+            <li class="flex gap-4">
+              <div class="w-10 h-10 rounded-lg bg-slate-800 text-white flex items-center justify-center flex-shrink-0"><i data-lucide="search" class="w-5 h-5"></i></div>
+              <div>
+                <strong class="text-white block">Above-the-Fold Search</strong>
+                <span class="text-slate-400 text-sm">Users see the search widget immediately on load with popular route shortcuts to reduce friction.</span>
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <div class="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-500 flex items-center justify-center flex-shrink-0"><i data-lucide="git-merge" class="w-5 h-5"></i></div>
+              <div>
+                <strong class="text-white block">Vertical Timelines</strong>
+                <span class="text-slate-400 text-sm">Routes are displayed with vertical steppers clearly showing Layover times and Safety Buffers.</span>
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <div class="w-10 h-10 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0"><i data-lucide="map-pin" class="w-5 h-5"></i></div>
+              <div>
+                <strong class="text-white block">Geographic Filtering</strong>
+                <span class="text-slate-400 text-sm">Algorithm physically restricts layover hubs to lie within a strict directional ellipse between Source and Destination.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-8">
+          <h3 class="text-2xl font-bold mb-6 text-white font-outfit flex items-center gap-2">
+            <i data-lucide="layout-list" class="text-indigo-400 w-6 h-6"></i> MVP Prioritization (MoSCoW)
+          </h3>
+          <div class="space-y-4">
+            <div class="border-l-4 border-amber-500 pl-4 py-1 bg-slate-900/30">
+              <p class="font-bold text-white text-sm uppercase tracking-wider">Must Have</p>
+              <p class="text-slate-400 text-sm">Geographic corridor logic, Realistic IRCTC slab-based pricing.</p>
+            </div>
+            <div class="border-l-4 border-indigo-500 pl-4 py-1 bg-slate-900/30">
+              <p class="font-bold text-white text-sm uppercase tracking-wider">Should Have</p>
+              <p class="text-slate-400 text-sm">"Flight Cost Comparison" badge, Vertical Timeline UX.</p>
+            </div>
+            <div class="border-l-4 border-slate-600 pl-4 py-1 bg-slate-900/30">
+              <p class="font-bold text-white text-sm uppercase tracking-wider">Could Have</p>
+              <p class="text-slate-400 text-sm">User accounts, saved favorite routes.</p>
+            </div>
+            <div class="border-l-4 border-rose-500 pl-4 py-1 bg-slate-900/30">
+              <p class="font-bold text-white text-sm uppercase tracking-wider">Won't Have (V1)</p>
+              <p class="text-slate-400 text-sm">Direct Payment/Booking Integration (Too much API/legal overhead for MVP).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GTM Strategy & KPIs -->
+  <section id="gtm" class="py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-4 text-center font-outfit text-white">GTM Strategy & KPIs</h2>
+      <p class="text-center text-slate-400 mb-12 max-w-2xl mx-auto">Focusing heavily on festival seasons where the pain point is most acute.</p>
+      
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="md:col-span-1 space-y-6">
+          <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-6">
+            <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+              <i data-lucide="target" class="w-4 h-4"></i> North Star Metric
+            </h4>
+            <p class="text-2xl font-bold text-amber-400 mb-1">Routes Unlocked</p>
+            <p class="text-sm text-slate-400">Number of users who found a viable multi-leg route when the direct route was 100% waitlisted.</p>
+          </div>
+          <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-6">
+            <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Secondary KPIs</h4>
+            <ul class="space-y-4 text-sm">
+              <li>
+                <span class="text-white block font-semibold">Financial Impact</span>
+                <span class="text-slate-400">Total ₹ saved vs alternative flights.</span>
+              </li>
+              <li>
+                <span class="text-white block font-semibold">Time-to-Value</span>
+                <span class="text-slate-400">Seconds from page load to first search (Optimized via above-fold form).</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="md:col-span-2 bg-slate-900/80 border border-slate-800 rounded-xl p-8">
+          <div class="mb-6">
+            <h3 class="text-2xl font-bold font-outfit text-white">Hidden Inventory Discovery (Delhi → Chennai)</h3>
+            <p class="text-sm text-slate-400">Showing how splitting legs drastically increases probability of finding seats.</p>
+          </div>
+          
+          <div class="h-64 w-full relative">
+             <canvas id="inventoryChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- GTM Phasing -->
+      <div class="bg-slate-900/40 border border-slate-800 rounded-xl p-8">
+        <h3 class="text-2xl font-bold mb-6 font-outfit text-center text-white">Phased Go-To-Market Rollout</h3>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="p-5 bg-slate-900 rounded-lg border border-slate-800 border-t-4 border-t-rose-500">
+            <span class="text-rose-400 font-bold mb-2 block">Phase 1: The Festival Test</span>
+            <p class="text-sm text-slate-400">Launch strictly 1 month before Diwali, targeting students via college subreddits complaining about Waitlists.</p>
+          </div>
+          <div class="p-5 bg-slate-900 rounded-lg border border-slate-800 border-t-4 border-t-amber-500">
+            <span class="text-amber-400 font-bold mb-2 block">Phase 2: Specific Corridors</span>
+            <p class="text-sm text-slate-400">Focus SEO and localized ads purely on the "Delhi to UP/Bihar" and "Bangalore to Chennai" high-traffic corridors.</p>
+          </div>
+          <div class="p-5 bg-slate-900 rounded-lg border border-slate-800 border-t-4 border-t-indigo-500">
+            <span class="text-indigo-400 font-bold mb-2 block">Phase 3: Meta-Search Partnerships</span>
+            <p class="text-sm text-slate-400">Provide our routing algorithm as an API to existing ticket platforms (MakeMyTrip) to monetize B2B.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap & Experimentation -->
+  <section id="roadmap" class="py-20 bg-[#0f172a]/50 border-t border-slate-800/50">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-12 text-center font-outfit text-white">Roadmap & Experimentation</h2>
+      
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <h3 class="text-2xl font-bold mb-6 flex items-center gap-3 text-amber-400">
+            <i data-lucide="flask-conical" class="w-6 h-6"></i> Planned A/B Tests
+          </h3>
+          <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-xl space-y-6">
+            <div>
+              <h4 class="font-bold text-white mb-2">Experiment: The "Flight Savings" Badge</h4>
+              <p class="text-sm text-slate-400"><strong class="text-slate-200 block mb-1">Hypothesis:</strong> Dynamically fetching flight prices and displaying a badge saying "Save ₹3,200 vs Flight" on the train route will increase user intent-to-book by 15%.</p>
+            </div>
+            <div class="pt-4 border-t border-slate-800">
+              <h4 class="font-bold text-white mb-2">Experiment: Layover Buffer Transparency</h4>
+              <p class="text-sm text-slate-400"><strong class="text-slate-200 block mb-1">Hypothesis:</strong> Explicitly labeling a 3-hour wait as a "Guaranteed Safe Buffer for Train Delays" instead of just "Layover" will reduce user anxiety and increase adoption of 2-leg routes.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-bold mb-6 flex items-center gap-3 text-rose-400">
+            <i data-lucide="alert-octagon" class="w-6 h-6"></i> Risk Mitigation Matrix
+          </h3>
+          <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 h-full">
+            <div class="space-y-6">
+              <div>
+                <h4 class="text-white font-bold mb-1">Risk: Train 1 is delayed, missing Train 2</h4>
+                <p class="text-slate-400 text-sm"><strong class="text-indigo-400">Mitigation:</strong> Hard-code a minimum 3-hour buffer into the routing algorithm. Do not show routes with tight connections.</p>
+              </div>
+              <div>
+                <h4 class="text-white font-bold mb-1">Risk: Users booking wrong stations</h4>
+                <p class="text-slate-400 text-sm"><strong class="text-indigo-400">Mitigation:</strong> Provide direct 1-click external links pre-filled with the exact station codes for both legs.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer class="bg-[#0b1120] border-t border-slate-800 py-8 text-center">
+    <p class="text-slate-600 font-medium font-outfit">RouteWeaver Product Management Portfolio Project</p>
+  </footer>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        nav.classList.add('bg-[#0f172a]/95', 'backdrop-blur-md', 'shadow-lg', 'border-b', 'border-slate-800');
+        nav.classList.remove('bg-transparent');
+      } else {
+        nav.classList.remove('bg-[#0f172a]/95', 'backdrop-blur-md', 'shadow-lg', 'border-b', 'border-slate-800');
+        nav.classList.add('bg-transparent');
+      }
+    });
+
+    // Chart.js - Waitlist Bar Chart
+    const ctxWaitlist = document.getElementById('waitlistChart').getContext('2d');
+    new Chart(ctxWaitlist, {
+      type: 'bar',
+      data: {
+        labels: ['120 Days', '60 Days', '30 Days', '7 Days'],
+        datasets: [
+          {
+            label: '% Confirmed',
+            data: [90, 55, 18, 2],
+            backgroundColor: '#10b981', // emerald-500
+          },
+          {
+            label: '% Waitlisted',
+            data: [10, 45, 82, 98],
+            backgroundColor: '#f43f5e', // rose-500
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { stacked: true, grid: { display: false } },
+          y: { stacked: true, grid: { color: '#1e293b' }, max: 100 }
+        },
+        plugins: {
+          legend: { labels: { color: '#cbd5e1' } }
+        }
+      }
+    });
+
+    // Chart.js - Inventory Area Chart
+    const ctxInventory = document.getElementById('inventoryChart').getContext('2d');
+    new Chart(ctxInventory, {
+      type: 'line',
+      data: {
+        labels: ['Direct', '1 Stop', '2 Stops'],
+        datasets: [{
+          label: 'Available Seats Found',
+          data: [0, 45, 120],
+          borderColor: '#f59e0b', // amber-500
+          backgroundColor: 'rgba(245, 158, 11, 0.2)',
+          fill: true,
+          tension: 0.4,
+          pointBackgroundColor: '#f59e0b',
+          borderWidth: 3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { grid: { display: false } },
+          y: { grid: { color: '#1e293b' } }
+        },
+        plugins: {
+          legend: { labels: { color: '#cbd5e1' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
